@@ -1,7 +1,7 @@
 /***********/
 /* OBJECTS */
 /***********/
-
+  
 // object literals
 let user = {
   name: "Abe",
