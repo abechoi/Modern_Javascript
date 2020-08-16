@@ -79,6 +79,7 @@ console.log(all[0].innerText.includes('changeMe'));
 all.forEach(p => {
   // GOOD! But p.textContent.includes('error') is better because it takes invisible text as well
   if(p.innerText.includes('error')){
+    //p.textContent.includes('error')
       p.classList.add('error');
   }else if(p.innerText.includes('success')){
       p.classList.add('success');
@@ -87,3 +88,18 @@ all.forEach(p => {
 // toggle
 title.classList.toggle('test'); // => class="test"
 title.classList.toggle('test'); // => class=""
+// parents & children example 1
+const article = document.querySelector('article');
+console.log(article.children);
+console.log(Array.from(article.children));
+Array.from(article.children).forEach(child => {
+  child.classList.add('article-element');
+});
+// parents & children example 2
+const articleTitle = document.querySelector('h3');
+console.log(articleTitle.parentElement); // => article
+console.log(articleTitle.parentElement.parentElement); // => body
+console.log(articleTitle.nextElementSibling); // => p, next element
+console.log(articleTitle.previousElementSibling); // => null
+// chaining
+console.log(articleTitle.nextElementSibling.parentElement.children);
