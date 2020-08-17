@@ -8,3 +8,12 @@
     color: limegreen;
     border: 1px dotted limegreen;
 }
+
+.box{
+    width: 200px;
+    height: 200px;
+    margin: 10px auto;
+    background: #eee;
+    text-align: center;
+    padding: 20px;
+}

@@ -103,3 +103,18 @@ console.log(articleTitle.nextElementSibling); // => p, next element
 console.log(articleTitle.previousElementSibling); // => null
 // chaining
 console.log(articleTitle.nextElementSibling.parentElement.children);
+// copy event
+const copy = document.querySelector('.copy-me');
+copy.addEventListener('copy', () => {
+  console.log('copy successful!');
+});
+// mousemove event
+const box = document.querySelector('.box');
+box.addEventListener('mousemove', e => {
+  //console.log(e.offsetX, e.offsetY);
+  box.textContent = `x = ${e.offsetX} | y = ${e.offsetY}`;
+});
+// wheel event
+document.addEventListener("wheel", e => {
+  console.log(e.pageX, e.pageY);
+});
