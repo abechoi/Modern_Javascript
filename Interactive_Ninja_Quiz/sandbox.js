@@ -16,28 +16,16 @@ form.addEventListener("submit", e => {
     feedback.textContent = "Username must contains letters only with 6-12 characters long.";
   }
 });
-// regex
+// Regex
 let username2 = "Abraham";
 let pattern = /^[a-zA-Z]{6,}$/;
-// test username against the pattern
+// Test username against the pattern
 let result = pattern.test(username2);
 console.log(result); // => true
-// search pattern against the username
+// Search pattern against the username
 result = username2.search(pattern);
 console.log(result); // => 0, 0 = position of the match
 username2 = "123Abraham321";
 pattern = /[a-zA-Z]{6,}/;
 result = username2.search(pattern);
 console.log(result); // => 3, 3 = position of the match, A = 3
-// keyup event - live feedback
-form.username.addEventListener("keyup", e => {
-  //console.log(e.target.value, form.username.value);
-  console.log(e);
-  if(pattern.test(e.target.value)){
-    console.log("passed");
-    form.username.setAttribute("class", "success");
-  }else{
-    console.log("failed");
-    form.username.setAttribute("class", "error");
-  }
-});
