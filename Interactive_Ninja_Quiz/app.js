@@ -15,6 +15,25 @@ form.addEventListener("submit", e => {
   });
   // display results
   scrollTo(0,0);
-  result.querySelector("span").textContent = `${score}%`;
+  //result.querySelector("span").textContent = `${score}%`;
   result.classList.remove("d-none");
+  
+  let output = 0;
+  const timer = setInterval(() => {
+    result.querySelector("span").textContent = `${output}%`;
+    if(output === score){
+      clearInterval(timer);
+    }else{
+      output++;
+    }
+  }, 10);
 });
+
+/*
+let i = 0;
+const timer = setInterval(() => {
+  console.log("hello");
+  i++;
+  i === 5 && clearInterval(timer);
+}, 1000);
+*/
