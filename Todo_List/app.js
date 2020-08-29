@@ -2,6 +2,7 @@ const addForm = document.querySelector(".add");
 const list = document.querySelector(".todos");
 const search = document.querySelector(".search input");
 
+// add todos - submit event
 const generateTemplate = todo => {
   
   const html = `
@@ -12,8 +13,7 @@ const generateTemplate = todo => {
   `;
 
   list.innerHTML += html;
-}
-
+};
 addForm.addEventListener("submit", e => {
   e.preventDefault();
   const todo = addForm.add.value.trim(); // trim method removes white spaces
@@ -23,14 +23,13 @@ addForm.addEventListener("submit", e => {
     addForm.reset();
   }
 });
-
-// delete todos
+// delete todos - click event
 list.addEventListener("click", e => {
   if(e.target.classList.contains("delete")){
     e.target.parentElement.remove();
   }
 });
-// keyup event
+// search todos - keyup event
 const filterTodos = (term) => {
   Array.from(list.children)
   .filter(todo => !todo.textContent.toLowerCase().includes(term))
@@ -43,4 +42,4 @@ const filterTodos = (term) => {
 search.addEventListener("keyup", () => {
   const term = search.value.trim().toLowerCase();
   filterTodos(term);
-})
+});
