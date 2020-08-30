@@ -47,14 +47,28 @@ console.log(users);
 userThree.deleteUser(userTwo);
 console.log(users);
 console.log(userThree);
-
 //! OLD CLASS
-function oldUser(username, email){
+function OldUser(username, email){
   this.username = username;
   this.email = email;
-  this.login = function(){
-    console.log(`${this.username} has logged in`);
-  }
 }
-const oldUserOne = new oldUser("mario", "mario@ninja.com");
-oldUserOne.login();
+OldUser.prototype.login = function(){
+  console.log(`${this.username} has logged in`);
+  return this;
+};
+OldUser.prototype.logout = function(){
+  console.log(`${this.username} has logged out`);
+  return this;
+};
+function OldAdmin(username, email, title){
+  OldUser.call(this, username, email);
+  this.title = title;
+};
+OldAdmin.prototype = Object.create(OldUser.prototype);
+OldAdmin.prototype.deleteUser = function(){
+
+};
+const oldUserOne = new OldUser("mario", "mario@ninja.com");
+const oldAdminOne = new OldAdmin("ADMIN", "ADMIN", "ADMIN");
+oldUserOne.login().logout();
+console.log(oldAdminOne);
