@@ -1,10 +1,11 @@
 const list = document.querySelector("ul");
 const form = document.querySelector("form");
+const button = document.querySelector("button");
 
-const addRecipe = recipe => {
+const addRecipe = (recipe, id) => {
   let time = recipe.created.toDate();
   let html = `
-    <li>
+    <li data-id=${id}>
       <div>${recipe.title}</div>
       <div>${time}</div>
       <button class="btn btn-danger btn-sm my-2">delete</button>
@@ -13,14 +14,30 @@ const addRecipe = recipe => {
 
   list.innerHTML += html;
 };
-
-// get documents
-db.collection("recipes").get().then(snapshot => {
-  snapshot.docs.forEach(doc => {
-    addRecipe(doc.data());
+const deleteRecipe = id => {
+  const recipes = document.querySelectorAll("li");
+  recipes.forEach(recipe => {
+    if(recipe.getAttribute("data-id") === id){
+      recipe.remove();
+    }
   })
-}).catch(err => console.log(err));
-
+}
+// get documents
+const unsub = db.collection("recipes").onSnapshot(snapshot => {
+  snapshot.docChanges().forEach(change => {
+    const doc = change.doc;
+    if(change.type === "added"){
+      addRecipe(doc.data(), doc.id);
+    }else if(change.type === "removed"){
+      deleteRecipe(doc.id);
+    }
+  });
+});
+// db.collection("recipes").get().then(snapshot => {
+//   snapshot.docs.forEach(doc => {
+//     addRecipe(doc.data(), doc.id);
+//   })
+// }).catch(err => console.log(err));
 // add documents
 form.addEventListener("submit", e => {
   e.preventDefault();
@@ -35,4 +52,17 @@ form.addEventListener("submit", e => {
     .then(docRef => console.log("Document written with ID: ", docRef))
     .catch(err => console.log(err));
 });
-
+// delete documents
+list.addEventListener("click", e => {
+  if(e.target.tagName === "BUTTON"){
+    const id = e.target.parentElement.getAttribute("data-id");
+    db.collection("recipes").doc(id).delete().then(() => {
+      console.log("recipe deleted");
+    }).catch(err => console.log(err));
+  }
+});
+// unsub from db changes
+button.addEventListener("click", () => {
+  unsub();
+  console.log("Unsubscribed from changes");
+});
