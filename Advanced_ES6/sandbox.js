@@ -53,4 +53,5 @@ console.log(symbolOne === symbolTwo);
 const ninja = {};
 ninja.age = 30;
 ninja["belt"] = "orange";
+ninja["belt"] = "black";
 console.log(ninja);
